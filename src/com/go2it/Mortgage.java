@@ -47,4 +47,14 @@ public class Mortgage {
     public void setDateStart(LocalDate dateStart) {
         this.dateStart = dateStart;
     }
+
+    @Override
+    public String toString() {
+        return "Mortgage{" +
+                "sum=" + sum +
+                ", interestRate=" + interestRate +
+                ", numMonths=" + numMonths +
+                ", dateStart=" + dateStart +
+                '}';
+    }
 }

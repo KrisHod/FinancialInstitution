@@ -7,6 +7,8 @@ public class Customer {
     private int sumWasSpentLastMonth;
     private int creditScore;
     private boolean isResident;
+    private Mortgage mortgage;
+    private CreditCard card;
     private HashMap<String, String> namesMemberFamily = new HashMap<String, String>();
 
     public Customer(String name, int sumWasSpentLastMonth, int creditScore, boolean isResident) {
@@ -14,6 +16,15 @@ public class Customer {
         this.sumWasSpentLastMonth = sumWasSpentLastMonth;
         this.creditScore = creditScore;
         this.isResident = isResident;
+    }
+
+    public Customer(String name, int sumWasSpentLastMonth, int creditScore, boolean isResident, Mortgage mortgage, CreditCard card) {
+        this.name = name;
+        this.sumWasSpentLastMonth = sumWasSpentLastMonth;
+        this.creditScore = creditScore;
+        this.isResident = isResident;
+        this.mortgage = mortgage;
+        this.card = card;
     }
 
     public String getName() {
@@ -56,6 +67,22 @@ public class Customer {
         this.namesMemberFamily = namesMemberFamily;
     }
 
+    public Mortgage getMortgage() {
+        return mortgage;
+    }
+
+    public void setMortgage(Mortgage mortgage) {
+        this.mortgage = mortgage;
+    }
+
+    public CreditCard getCard() {
+        return card;
+    }
+
+    public void setCard(CreditCard card) {
+        this.card = card;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -63,6 +90,8 @@ public class Customer {
                 ", sumWasSpentLastMonth=" + sumWasSpentLastMonth +
                 ", creditScore=" + creditScore +
                 ", isResident=" + isResident +
+                ", mortgage=" + mortgage +
+                ", card=" + card +
                 ", namesMemberFamily=" + namesMemberFamily +
                 '}';
     }

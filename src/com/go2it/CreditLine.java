@@ -6,14 +6,13 @@ import java.util.Calendar;
 public class CreditLine {
     private int limit;
     private double interest_rate;
-    private Period numDaysToPay;
+    private int numDaysToPay;
     private Calendar updatedAt;
 
-    public CreditLine(int limit, double interest_rate, Period numDaysToPay, Calendar updatedAt) {
+    public CreditLine(int limit, double interest_rate, int numDaysToPay) {
         this.limit = limit;
         this.interest_rate = interest_rate;
         this.numDaysToPay = numDaysToPay;
-        this.updatedAt = updatedAt;
     }
 
     public int getLimit() {
@@ -32,11 +31,11 @@ public class CreditLine {
         this.interest_rate = interest_rate;
     }
 
-    public Period getNumDaysToPay() {
+    public int getNumDaysToPay() {
         return numDaysToPay;
     }
 
-    public void setNumDaysToPay(Period numDaysToPay) {
+    public void setNumDaysToPay(int numDaysToPay) {
         this.numDaysToPay = numDaysToPay;
     }
 
@@ -46,5 +45,15 @@ public class CreditLine {
 
     public void setUpdatedAt(Calendar updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditLine{" +
+                "limit=" + limit +
+                ", interest_rate=" + interest_rate +
+                ", numDaysToPay=" + numDaysToPay +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

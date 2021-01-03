@@ -3,10 +3,12 @@ package com.go2it;
 public class CreditCard {
     private String cardNumber;
     private String pin;
+    private CreditLine creditLine;
 
-    public CreditCard(String cardNumber, String pin) {
+    public CreditCard(String cardNumber, String pin, CreditLine creditLine) {
         this.cardNumber = cardNumber;
         this.pin = pin;
+        this.creditLine = creditLine;
     }
 
     public String getCardNumber() {
@@ -25,5 +27,20 @@ public class CreditCard {
         this.pin = pin;
     }
 
+    public CreditLine getCreditLine() {
+        return creditLine;
+    }
 
+    public void setCreditLine(CreditLine creditLine) {
+        this.creditLine = creditLine;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", pin='" + pin + '\'' +
+                ", creditLine=" + creditLine +
+                '}';
+    }
 }
