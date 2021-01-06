@@ -1,18 +1,15 @@
-package com.go2it;
+package com.go2it.entities;
 
-import java.time.Period;
 import java.util.Calendar;
 
-public class CreditLine {
+public class CreditLine extends CreditProduct {
     private int limit;
     private double interest_rate;
-    private int numDaysToPay;
-    private Calendar updatedAt;
+    private Calendar updatedAt; //why in one class it is LocalDate type that describes the property and in other Calendar?
 
     public CreditLine(int limit, double interest_rate, int numDaysToPay) {
         this.limit = limit;
         this.interest_rate = interest_rate;
-        this.numDaysToPay = numDaysToPay;
     }
 
     public int getLimit() {
@@ -31,14 +28,6 @@ public class CreditLine {
         this.interest_rate = interest_rate;
     }
 
-    public int getNumDaysToPay() {
-        return numDaysToPay;
-    }
-
-    public void setNumDaysToPay(int numDaysToPay) {
-        this.numDaysToPay = numDaysToPay;
-    }
-
     public Calendar getUpdatedAt() {
         return updatedAt;
     }
@@ -52,7 +41,6 @@ public class CreditLine {
         return "CreditLine{" +
                 "limit=" + limit +
                 ", interest_rate=" + interest_rate +
-                ", numDaysToPay=" + numDaysToPay +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

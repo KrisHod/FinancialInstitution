@@ -1,6 +1,6 @@
-package com.go2it;
+package com.go2it.entities;
 
-public class CreditCard {
+public class CreditCard extends CreditProduct{
     private String cardNumber;
     private String pin;
     private CreditLine creditLine;

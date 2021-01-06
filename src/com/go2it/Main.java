@@ -1,28 +1,40 @@
 package com.go2it;
 
+import com.go2it.entities.*;
+import com.go2it.service.CustomerService;
+import com.go2it.service.MortgageService;
+
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        CustomerService customerService = new CustomerService();
-        MortgageService mortgageService = new MortgageService();
-
-        CreditLine creditLine = new CreditLine(2000, 2.2, 30);
-
-        CreditCard card = new CreditCard("1111222233334444", "1234", creditLine);
-
         Customer customer = new Customer("John", 6000, 560, true);
+        customer.setDateBecomeCustomer(LocalDate.of(2010,6,19));
 
-        customerService.applyForCreditLine(customer);
-        customerService.applyForMortgage(customer);
-        customerService.getPromotion(customer);
+        //Checking mortgage functionality
+        MortgageService mortgageService = new MortgageService();
+        try {
+            Mortgage mortgage = mortgageService.applyCreditProduct(customer);
+            mortgageService.applyPromotion(customer,mortgage);
+            System.out.println(mortgage);
+            System.out.println("Your monthly payment will be " + String.format("%.2f",mortgageService.getMonthlyPayment(mortgage)));
+            System.out.println("Your total payment will be " + String.format("%.2f",mortgageService.getTotalPayment(mortgage)));
 
-        System.out.println(customer.getMortgage());
+        } catch (NotEligibleCustomerException e) {
+            e.getMessage();
+        }
 
-        System.out.println(customer);
 
-        System.out.println("Your mortgage will end on " + mortgageService.getDateEnd(customer.getMortgage()));
-        System.out.println("Your monthly payment will be " + mortgageService.getMonthlyPayment(customer.getMortgage()));
-        System.out.println("Your total payment will be " + mortgageService.getTotalPayment(customer.getMortgage()));
+
+
+//        CreditLine creditLine = new CreditLine(2000, 2.2, 30);
+//
+//        CreditCard card = new CreditCard("1111222233334444", "1234", creditLine);
+//
+
+
+
+
+
     }
 }
