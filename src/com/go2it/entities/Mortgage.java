@@ -52,7 +52,9 @@ public class Mortgage extends CreditProduct{
     public static Double getPromotionalReduceRate() {
         return PROMOTIONAL_REDUCE_RATE;
     }
-
+    public LocalDate calculateEndDate(){
+        return dateStart.plusMonths(numMonths);
+    }
 
     @Override
     public String toString() {

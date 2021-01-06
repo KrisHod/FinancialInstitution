@@ -1,46 +1,46 @@
 package com.go2it.entities;
 
-public class CreditCard extends CreditProduct{
-    private String cardNumber;
-    private String pin;
-    private CreditLine creditLine;
+public class CreditCard extends CreditProduct {
+    private double balance;
+    private double annualFee;
+    private int limit;
 
-    public CreditCard(String cardNumber, String pin, CreditLine creditLine) {
-        this.cardNumber = cardNumber;
-        this.pin = pin;
-        this.creditLine = creditLine;
+    public CreditCard(double balance, double annualFee, int limit) {
+        this.balance = balance;
+        this.annualFee = annualFee;
+        this.limit = limit;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
-    public String getPin() {
-        return pin;
+    public double getAnnualFee() {
+        return annualFee;
     }
 
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setAnnualFee(double annualFee) {
+        this.annualFee = annualFee;
     }
 
-    public CreditLine getCreditLine() {
-        return creditLine;
+    public int getLimit() {
+        return limit;
     }
 
-    public void setCreditLine(CreditLine creditLine) {
-        this.creditLine = creditLine;
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     @Override
     public String toString() {
         return "CreditCard{" +
-                "cardNumber='" + cardNumber + '\'' +
-                ", pin='" + pin + '\'' +
-                ", creditLine=" + creditLine +
+                "balance=" + balance +
+                ", annualFee=" + annualFee +
+                ", limit=" + limit +
                 '}';
     }
 }

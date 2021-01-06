@@ -1,6 +1,7 @@
 package com.go2it.entities;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,24 +14,15 @@ public class Customer {
     private boolean isResident;
     private boolean isStudent;
     private LocalDate dateBecomeCustomer;
-  //  private Mortgage mortgage;
- //   private CreditCard card;
     private Set<String> memberFamily = new HashSet<String>();
 
-    public Customer(String name, int spentLastMonth, int creditScore, boolean isResident) {
+    public Customer(String name, String surname, LocalDate doB, int spentLastMonth, int creditScore, boolean isResident) {
         this.name = name;
+        this.surname = surname;
+        DoB = doB;
         this.spentLastMonth = spentLastMonth;
         this.creditScore = creditScore;
         this.isResident = isResident;
-    }
-
-    public Customer(String name, int spentLastMonth, int creditScore, boolean isResident, CreditCard card) {
-        this.name = name;
-        this.spentLastMonth = spentLastMonth;
-        this.creditScore = creditScore;
-        this.isResident = isResident;
-
-   //     this.card = card;
     }
 
     public String getName() {
@@ -105,32 +97,11 @@ public class Customer {
         isStudent = student;
     }
 
-    //    public Mortgage getMortgage() {
-//        return mortgage;
-//    }
-//
-//    public void setMortgage(Mortgage mortgage) {
-//        this.mortgage = mortgage;
-//    }
-//
-//    public CreditCard getCard() {
-//        return card;
-//    }
-//
-//    public void setCard(CreditCard card) {
-//        this.card = card;
-//    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", sumWasSpentLastMonth=" + spentLastMonth +
-                ", creditScore=" + creditScore +
-                ", isResident=" + isResident +
-     //           ", mortgage=" + mortgage +
-    //            ", card=" + card +
-                ", namesMemberFamily=" + memberFamily +
-                '}';
+    /**
+     * calculate how many months a person has been our customer
+     */
+    public long getNumberMonthsOurClient() {
+        Period diff = Period.between(dateBecomeCustomer, LocalDate.now());
+        return diff.toTotalMonths();
     }
 }

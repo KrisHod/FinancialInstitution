@@ -1,23 +1,13 @@
 package com.go2it.service;
 
 import com.go2it.NotEligibleCustomerException;
-import com.go2it.entities.BankProduct;
-import com.go2it.entities.CreditProduct;
-import com.go2it.entities.Customer;
-import com.go2it.entities.Mortgage;
+import com.go2it.entities.*;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Scanner;
 
 public class MortgageService extends CreditProductService {
-    /**
-     * calculate how many months a person has been our customer
-     */
-    private long getNumberMonthsOurClient(Customer customer) {
-        Period diff = Period.between(customer.getDateBecomeCustomer(), LocalDate.now());
-        return diff.toTotalMonths();
-    }
 
     /**
      * create a mortgage according to the conditions
@@ -42,7 +32,7 @@ public class MortgageService extends CreditProductService {
 
     @Override
     public boolean isPromotionEligible(Customer customer) {
-        long monthsOurClient = getNumberMonthsOurClient(customer);
+        long monthsOurClient = customer.getNumberMonthsOurClient();
         return monthsOurClient > 24;
     }
 
@@ -54,7 +44,7 @@ public class MortgageService extends CreditProductService {
         Mortgage mortgage = (Mortgage) product;
 
         if (isPromotionEligible(customer)) {
-            double newInterestRate =mortgage.getInterestRate() - Mortgage.getPromotionalReduceRate();
+            double newInterestRate = mortgage.getInterestRate() - Mortgage.getPromotionalReduceRate();
             System.out.println("Your interest rate changed from " + mortgage.getInterestRate() + " to " + newInterestRate);
             mortgage.setInterestRate(newInterestRate);
         } else {
@@ -70,5 +60,14 @@ public class MortgageService extends CreditProductService {
 
     public double getTotalPayment(Mortgage mortgage) {
         return getMonthlyPayment(mortgage) * mortgage.getNumMonths();
+    }
+
+    public void getMonthlyPaymentCalendar(Mortgage mortgage) {
+        Period period = Period.ofMonths(1);
+        LocalDate startDate = mortgage.getDateStart();
+        while (startDate.isBefore(mortgage.calculateEndDate())) {
+            startDate=startDate.plus(period);
+            System.out.println("Date of your next payment is " + startDate);
+        }
     }
 }
