@@ -1,5 +1,7 @@
 package com.go2it.service;
 
-public abstract class BankProductService implements Promotionable{
+import com.go2it.entities.Promotionable;
+
+public abstract class BankProductService implements Promotionable {
 
 }

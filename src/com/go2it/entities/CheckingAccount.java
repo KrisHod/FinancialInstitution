@@ -1,12 +1,12 @@
 package com.go2it.entities;
 
-public class CheckingAccount extends BankProduct{
+public class CheckingAccount extends BankProduct {
     private double balance;
     private double annualFee;
 
-    private static final int PROMOTION_ELIGIBLE_EXPENSES = 5000;
 
-    public CheckingAccount(double balance, double annualFee) {
+    public CheckingAccount(Customer customer, double balance, double annualFee) {
+        super(customer);
         this.balance = balance;
         this.annualFee = annualFee;
     }
@@ -27,7 +27,4 @@ public class CheckingAccount extends BankProduct{
         this.annualFee = annualFee;
     }
 
-    public static int getPromotionEligibleExpenses() {
-        return PROMOTION_ELIGIBLE_EXPENSES;
-    }
 }

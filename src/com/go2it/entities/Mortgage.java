@@ -1,28 +1,17 @@
 package com.go2it.entities;
 
 import java.time.LocalDate;
-import java.time.Period;
 
-public class Mortgage extends CreditProduct{
+public class Mortgage extends CreditProduct {
     private int sum;
-    private double interestRate;
     private int numMonths;
     private LocalDate dateStart;
-    private static final Double PROMOTIONAL_REDUCE_RATE = 0.5;
 
-    public Mortgage(int sum, double interestRate, int numMonths, LocalDate dateStart) {
+    public Mortgage(Customer customer, double interestRate, int sum, int numMonths, LocalDate dateStart) {
+        super(customer, interestRate);
         this.sum = sum;
-        this.interestRate = interestRate;
         this.numMonths = numMonths;
         this.dateStart = dateStart;
-    }
-
-    public double getInterestRate() {
-        return interestRate;
-    }
-
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
     }
 
     public int getNumMonths() {
@@ -49,10 +38,7 @@ public class Mortgage extends CreditProduct{
         this.dateStart = dateStart;
     }
 
-    public static Double getPromotionalReduceRate() {
-        return PROMOTIONAL_REDUCE_RATE;
-    }
-    public LocalDate calculateEndDate(){
+    public LocalDate calculateEndDate() {
         return dateStart.plusMonths(numMonths);
     }
 
@@ -60,7 +46,6 @@ public class Mortgage extends CreditProduct{
     public String toString() {
         return "Mortgage{" +
                 "sum=" + sum +
-                ", interestRate=" + interestRate +
                 ", numMonths=" + numMonths +
                 ", dateStart=" + dateStart +
                 '}';

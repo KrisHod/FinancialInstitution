@@ -9,17 +9,17 @@ public class CheckingAccountService extends BankProductService {
 
     @Override
     public boolean isPromotionEligible(Customer customer) {
-        return customer.getSpentLastMonth() > CheckingAccount.getPromotionEligibleExpenses();
+        return customer.getSpentLastMonth() > PROMOTION_ELIGIBLE_EXPENSES;
     }
 
     /**
      * if the customer is eligible to the promotion (is student), halve annual fee
      */
     @Override
-    public void applyPromotion(Customer customer, BankProduct product) throws Exception {
+    public void applyPromotion(BankProduct product) throws Exception {
         CheckingAccount checkingAccount = (CheckingAccount) product;
 
-        if (isPromotionEligible(customer)) {
+        if (isPromotionEligible(checkingAccount.getCustomer())) {
             checkingAccount.setAnnualFee(checkingAccount.getAnnualFee() / 2);
         } else {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply promotion!");

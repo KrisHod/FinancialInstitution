@@ -5,32 +5,19 @@ import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Customer {
-    private String name;
-    private String surname;
-    private LocalDate DoB;
+public class Customer extends Person {
     private int spentLastMonth;
     private int creditScore;
     private boolean isResident;
     private boolean isStudent;
     private LocalDate dateBecomeCustomer;
-    private Set<String> memberFamily = new HashSet<String>();
+    private Set<Person> memberFamily = new HashSet<>();
 
     public Customer(String name, String surname, LocalDate doB, int spentLastMonth, int creditScore, boolean isResident) {
-        this.name = name;
-        this.surname = surname;
-        DoB = doB;
+        super(name, surname, doB);
         this.spentLastMonth = spentLastMonth;
         this.creditScore = creditScore;
         this.isResident = isResident;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSpentLastMonth() {
@@ -57,28 +44,12 @@ public class Customer {
         isResident = resident;
     }
 
-    public Set<String> getMemberFamily() {
+    public Set<Person> getMemberFamily() {
         return memberFamily;
     }
 
-    public void setMemberFamily(Set<String> memberFamily) {
+    public void setMemberFamily(Set<Person> memberFamily) {
         this.memberFamily = memberFamily;    //what's about addNewFamilyMember()?
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public LocalDate getDoB() {
-        return DoB;
-    }
-
-    public void setDoB(LocalDate doB) {
-        DoB = doB;
     }
 
     public LocalDate getDateBecomeCustomer() {

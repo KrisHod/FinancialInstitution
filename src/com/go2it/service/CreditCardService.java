@@ -3,9 +3,6 @@ package com.go2it.service;
 import com.go2it.NotEligibleCustomerException;
 import com.go2it.entities.*;
 
-import java.time.LocalDate;
-
-
 public class CreditCardService extends CreditProductService {
     /**
      * create a credit card according to the conditions
@@ -14,11 +11,11 @@ public class CreditCardService extends CreditProductService {
     public CreditCard applyCreditProduct(Customer customer) throws Exception {
         if (isEligibleForCreditProduct(customer)) {
             if (customer.getCreditScore() < 600) {
-                return new CreditCard(0, 99, 2000);
+                return new CreditCard(customer, 0, 2000, 99);
             } else if (customer.getCreditScore() >= 600 && customer.getCreditScore() < 700) {
-                return new CreditCard(0, 49, 5000);
+                return new CreditCard(customer, 0, 5000, 49);
             } else {
-                return new CreditCard(0, 19, 10000);
+                return new CreditCard(customer, 0, 10000, 19);
             }
         } else {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply mortgage");
@@ -31,10 +28,10 @@ public class CreditCardService extends CreditProductService {
     }
 
     @Override
-    public void applyPromotion(Customer customer, BankProduct product) throws Exception {
+    public void applyPromotion(BankProduct product) throws Exception {
         CreditCard creditCard = (CreditCard) product;
 
-        if (isPromotionEligible(customer)) {
+        if (isPromotionEligible(creditCard.getCustomer())) {
             creditCard.setAnnualFee(0);
         } else {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply promotion!");
