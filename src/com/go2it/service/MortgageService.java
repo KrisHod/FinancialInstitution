@@ -46,7 +46,11 @@ public class MortgageService extends CreditProductService {
      */
     @Override
     public void applyPromotion(BankProduct product) throws NotEligibleCustomerException {
-        Mortgage mortgage = (Mortgage) product;
+        if (!(product instanceof Mortgage)) {
+            throw new ClassCastException();
+        }
+            Mortgage mortgage = (Mortgage) product;
+
 //        if (mortgage instanceof Mortgage){   //I would use the instanceOf or getClass() to check if it is the Mortgage.
 //        Otherwise, ClassCastException will be thrown in runtime
         if (isPromotionEligible(mortgage.getCustomer())) {

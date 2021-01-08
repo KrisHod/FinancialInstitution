@@ -2,8 +2,7 @@ package com.go2it.entities;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Customer extends Person {
     private int spentLastMonth;
@@ -11,7 +10,8 @@ public class Customer extends Person {
     private boolean isResident;
     private boolean isStudent;
     private LocalDate dateBecomeCustomer;
-    private Set<Person> memberFamily = new HashSet<>();
+    private Map<String, Person> familyMember = new HashMap<>();
+    private Set<BankProduct> bankProducts = new HashSet<>();
 
     public Customer(String name, String surname, LocalDate doB, int spentLastMonth, int creditScore, boolean isResident) {
         super(name, surname, doB);
@@ -44,12 +44,12 @@ public class Customer extends Person {
         isResident = resident;
     }
 
-    public Set<Person> getMemberFamily() {
-        return memberFamily;
+    public Map<String, Person> getFamilyMember() {
+        return familyMember;
     }
 
-    public void setMemberFamily(Set<Person> memberFamily) {
-        this.memberFamily = memberFamily;    //what's about addNewFamilyMember()?
+    public void setFamilyMember(Map<String, Person> familyMember) {
+        this.familyMember = familyMember;
     }
 
     public LocalDate getDateBecomeCustomer() {
@@ -68,11 +68,56 @@ public class Customer extends Person {
         isStudent = student;
     }
 
+    public Map<String,Person> addNewFamilyMember(String relationship, Person newFamilyMember) {
+        familyMember.put(relationship, newFamilyMember);
+        return familyMember;
+    }
+
+    public Set<BankProduct> getBankProducts() {
+        return bankProducts;
+    }
+
+    public void setBankProducts(Set<BankProduct> bankProducts) {
+        this.bankProducts = bankProducts;
+    }
+
     /**
      * calculate how many months a person has been our customer
      */
     public long getNumberMonthsOurClient() {
         Period diff = Period.between(dateBecomeCustomer, LocalDate.now());
         return diff.toTotalMonths();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return getName().equals(customer.getName()) && getSurname().equals(customer.getSurname()) && getDoB() == customer.getDoB() &&
+                getSpentLastMonth() == customer.getSpentLastMonth() && getCreditScore() == customer.getCreditScore()
+                && isResident() == customer.isResident() && isStudent() == customer.isStudent()
+                && getDateBecomeCustomer().equals(customer.getDateBecomeCustomer());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSurname(), getDoB(), getSpentLastMonth(),
+                getCreditScore(), isResident(), isStudent(), getDateBecomeCustomer());
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + getName() + '\'' +
+                ", surname='" + getSurname() + '\'' +
+                ", DoB=" + getDoB() +
+                ", spentLastMonth=" + spentLastMonth +
+                ", creditScore=" + creditScore +
+                ", isResident=" + isResident +
+                ", isStudent=" + isStudent +
+                ", dateBecomeCustomer=" + dateBecomeCustomer +
+                ", bankProducts=" + bankProducts +
+                '}';
     }
 }

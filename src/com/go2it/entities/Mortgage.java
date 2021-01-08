@@ -1,6 +1,7 @@
 package com.go2it.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Mortgage extends CreditProduct {
     private int sum;
@@ -43,10 +44,27 @@ public class Mortgage extends CreditProduct {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mortgage)) return false;
+        Mortgage mortgage = (Mortgage) o;
+        return getCustomer().equals(mortgage.getCustomer()) && Double.compare(getInterestRate(), mortgage.getInterestRate()) == 0
+                && getSum() == mortgage.getSum() && getNumMonths() == mortgage.getNumMonths()
+                && getDateStart().equals(mortgage.getDateStart());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCustomer(), getInterestRate(), getSum(), getNumMonths(), getDateStart());
+    }
+
+    @Override
     public String toString() {
-        return "Mortgage{" +
-                "sum=" + sum +
+        return "Mortgage of customer - - name ='" + getCustomer().getName() + '\'' +
+                ", surname='" + getCustomer().getSurname() +
+                ", sum=" + sum +
                 ", numMonths=" + numMonths +
+                ", interestRate=" + getInterestRate() +
                 ", dateStart=" + dateStart +
                 '}';
     }

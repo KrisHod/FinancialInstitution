@@ -1,9 +1,7 @@
 package com.go2it.service;
 
 import com.go2it.NotEligibleCustomerException;
-import com.go2it.entities.BankProduct;
-import com.go2it.entities.CheckingAccount;
-import com.go2it.entities.Customer;
+import com.go2it.entities.*;
 
 public class CheckingAccountService extends BankProductService {
 

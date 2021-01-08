@@ -2,7 +2,7 @@ package com.go2it.entities;
 
 import java.time.LocalDate;
 
-public class Person {
+public abstract class Person {
     private String name;
     private String surname;
     private LocalDate DoB;
@@ -36,4 +36,5 @@ public class Person {
     public void setDoB(LocalDate doB) {
         DoB = doB;
     }
+
 }

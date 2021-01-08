@@ -4,6 +4,8 @@ import com.go2it.entities.*;
 import com.go2it.service.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,9 +40,21 @@ public class Main {
             System.out.println(creditLine);
             creditLineService.applyPromotion(creditLine);
             System.out.println(creditLine);
+
+            List<BankProduct> productList = new ArrayList<>();
+            productList.add(mortgage);
+            productList.add(creditLine);
+            productList.add(creditCard);
+            for (BankProduct prodct : productList) {
+
+                mortgageService.applyPromotion(prodct);
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+
     }
 
 }

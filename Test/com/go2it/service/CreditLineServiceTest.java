@@ -7,4 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreditLineServiceTest {
 
 
+    @Test
+    void applyCreditProduct() {
+    }
+
+    @Test
+    void isPromotionEligible() {
+    }
+
+    @Test
+    void applyPromotion() {
+    }
 }

@@ -47,12 +47,4 @@ public abstract class CreditProduct extends BankProduct {
         this.interestRate = interestRate;
     }
 
-    @Override
-    public String toString() {
-        return "CreditProduct{" +
-                "balance=" + balance +
-                ", limit=" + limit +
-                ", interestRate=" + interestRate +
-                '}';
-    }
 }
