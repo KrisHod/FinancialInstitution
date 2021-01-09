@@ -8,17 +8,16 @@ public class CreditLineService extends CreditProductService {
 
     @Override
     public CreditLine applyCreditProduct(Customer customer) throws Exception {
-        long monthsOurClient = customer.getNumberMonthsOurClient();
-        if (isEligibleForCreditProduct(customer)) {
-            if (customer.getCreditScore() < 600 && monthsOurClient < 24) {
-                return new CreditLine(customer, 0, 2000, 22);
-            } else if (customer.getCreditScore() >= 600 && customer.getCreditScore() < 700 && monthsOurClient > 24) {
-                return new CreditLine(customer, 0, 10000, 10);
-            } else {
-                return new CreditLine(customer, 0, 30000, 5);
-            }
-        } else {
+        if (!isEligibleForCreditProduct(customer)) {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply mortgage");
+        }
+        long monthsOurClient = customer.getNumberMonthsOurClient();
+        if (monthsOurClient < 24) {
+            return new CreditLine(customer, 0, 2000, 22);
+        } else if (monthsOurClient > 24 && monthsOurClient < 36) {
+            return new CreditLine(customer, 0, 10000, 10);
+        } else {
+            return new CreditLine(customer, 0, 30000, 5);
         }
     }
 
@@ -28,13 +27,14 @@ public class CreditLineService extends CreditProductService {
     }
 
     @Override
-    public void applyPromotion(BankProduct product) throws Exception {
+    public void applyPromotion(BankProduct product) throws NotEligibleCustomerException {
+        if (!(product instanceof CreditLine)) {
+            throw new IllegalArgumentException("Incorrect type of banking product. Only Credit Line is allowed here");
+        }
         CreditLine creditLine = (CreditLine) product;
-
-        if (isPromotionEligible(creditLine.getCustomer())) {
-            creditLine.setLimit(creditLine.getLimit() + 2000);
-        } else {
+        if (!isPromotionEligible(creditLine.getCustomer())) {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply promotion!");
         }
+        creditLine.setLimit(creditLine.getLimit() + 2000);
     }
 }

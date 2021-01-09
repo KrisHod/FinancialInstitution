@@ -20,18 +20,17 @@ public class MortgageService extends CreditProductService {
      */
     @Override
     public Mortgage applyCreditProduct(Customer customer) throws NotEligibleCustomerException {
-        int sum = getRequestedAmountFromUser();
-        if (isEligibleForCreditProduct(customer)) {
-            if (customer.getCreditScore() < 600 && sum > 3000000) {
-                return new Mortgage(customer, 5.5, sum, 120, LocalDate.now().plusDays(5));
-            } else if (customer.getCreditScore() >= 600 && customer.getCreditScore() < 700
-                    && sum <= 2000000 && sum > 1000000) {
-                return new Mortgage(customer, 3, sum, 120, LocalDate.now().plusDays(5));
-            } else {
-                return new Mortgage(customer, 1.5, sum, 60, LocalDate.now());
-            }
-        } else {
+        if (!isEligibleForCreditProduct(customer)) {
             throw new NotEligibleCustomerException("Not eligible client attempts to apply mortgage");
+        }
+        int sum = getRequestedAmountFromUser();
+        if (customer.getCreditScore() < 600 && sum > 3000000) {
+            return new Mortgage(customer, 5.5, sum, 120, LocalDate.now().plusDays(5));
+        } else if (customer.getCreditScore() >= 600 && customer.getCreditScore() < 700
+                && sum <= 2000000 && sum > 1000000) {
+            return new Mortgage(customer, 3, sum, 120, LocalDate.now().plusDays(5));
+        } else {
+            return new Mortgage(customer, 1.5, sum, 60, LocalDate.now());
         }
     }
 
@@ -47,19 +46,15 @@ public class MortgageService extends CreditProductService {
     @Override
     public void applyPromotion(BankProduct product) throws NotEligibleCustomerException {
         if (!(product instanceof Mortgage)) {
-            throw new ClassCastException();
+            throw new IllegalArgumentException("Incorrect type of banking product. Only Mortgage is allowed here");
         }
-            Mortgage mortgage = (Mortgage) product;
-
-//        if (mortgage instanceof Mortgage){   //I would use the instanceOf or getClass() to check if it is the Mortgage.
-//        Otherwise, ClassCastException will be thrown in runtime
-        if (isPromotionEligible(mortgage.getCustomer())) {
+        Mortgage mortgage = (Mortgage) product;
+        if (!isPromotionEligible(mortgage.getCustomer())) {
+            throw new NotEligibleCustomerException("Not eligible client attempts to apply promotion!");
+        }
             double newInterestRate = mortgage.getInterestRate() - 0.5;
             System.out.println("Your interest rate changed from " + mortgage.getInterestRate() + " to " + newInterestRate);
             mortgage.setInterestRate(newInterestRate);
-        } else {
-            throw new NotEligibleCustomerException("Not eligible client attempts to apply promotion!");
-        }
     }
 
     public double getMonthlyPayment(Mortgage mortgage) {

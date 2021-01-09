@@ -41,14 +41,6 @@ public class Main {
             creditLineService.applyPromotion(creditLine);
             System.out.println(creditLine);
 
-            List<BankProduct> productList = new ArrayList<>();
-            productList.add(mortgage);
-            productList.add(creditLine);
-            productList.add(creditCard);
-            for (BankProduct prodct : productList) {
-
-                mortgageService.applyPromotion(prodct);
-            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

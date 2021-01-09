@@ -34,7 +34,7 @@ public class CreditCard extends CreditProduct {
 
     @Override
     public String toString() {
-        return "CreditCard of customer  - name ='" + getCustomer().getName() + '\'' +
+        return "Credit Card of customer  - name ='" + getCustomer().getName() + '\'' +
                 ", surname='" + getCustomer().getSurname() +
                 ", balance=" + getBalance() +
                 ", limit=" + getLimit() +
